@@ -1,0 +1,37 @@
+name: drupal102
+recipe: drupal10
+config:
+  webroot: web
+  php: '8.2'
+
+proxy:
+  mailhog:
+    - mail.lemp.lndo.site
+services:
+  appserver:
+    build_as_root:
+      - apt-get update -y
+      - curl -sL https://deb.nodesource.com/setup_18.x | bash -
+      - apt install nodejs -y
+      - npm install -g gulp-cli
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+  myservice:
+    type: phpmyadmin
+
+tooling:
+  npm:
+    service: appserver
+    cmd: npm
+  node:
+    service: appserver
+    cmd: node
+  gulp:
+    service: appserver
+    cmd: gulp  
+  phpunit:
+    service: appserver
+    cmd:
+      - /app/lando/scripts/phpunit.sh

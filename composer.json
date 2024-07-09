@@ -1,0 +1,110 @@
+{
+    "name": "drupal-composer/drupal-project",
+    "description": "Project template for Drupal 10 projects with Composer",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "",
+            "role": ""
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "acquia/cohesion": "^7.5",
+        "acquia/cohesion-theme": "^7.5",
+        "composer/installers": "^2.1",
+        "cweagans/composer-patches": "^1.7",
+        "drupal/admin_toolbar": "^3.4",
+        "drupal/amp": "^3.8",
+        "drupal/amptheme": "^3.1",
+        "drupal/content_notification": "^2.8",
+        "drupal/context_stack": "^1.1",
+        "drupal/core-composer-scaffold": "^10.2.0",
+        "drupal/core-recommended": "^10.2.0",
+        "drupal/ctools": "^4.0",
+        "drupal/custom_admin_menu": "^1.0",
+        "drupal/entity_reference_revisions": "^1.11",
+        "drupal/google_analytics": "^4.0",
+        "drupal/google_analytics_counter": "^4.0",
+        "drupal/imce": "^3.0",
+        "drupal/instagram_block": "3.x-dev@dev",
+        "drupal/page_manager": "^4.0@RC",
+        "drupal/panels": "^4.7",
+        "drupal/publication_date": "^2.0@beta",
+        "drupal/rules": "^3.0@alpha",
+        "drupal/stable": "^2.0",
+        "drupal/token": "^1.13",
+        "drupal/token_filter": "^2.1",
+        "drush/drush": "^12.4.3",
+        "vlucas/phpdotenv": "^5.1",
+        "webflo/drupal-finder": "^1.2"
+    },
+    "require-dev": {
+        "drupal/core-dev": "^10.2.0"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "discard-changes": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "autoload": {
+        "classmap": [
+            "scripts/composer/ScriptHandler.php"
+        ],
+        "files": ["load.environment.php"]
+    },
+    "scripts": {
+        "pre-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "pre-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "post-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ],
+        "post-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ]
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "composer-exit-on-patch-failure": true,
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "patches": {
+        }
+    }
+}
