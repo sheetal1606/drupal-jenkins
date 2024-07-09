@@ -20,7 +20,7 @@ class DemoController extends ControllerBase {
       $s = $i + $j;
       $i= $j;
       $j = $s;
-      print $s."<br>"   ;
+      print $s."<br>";
     }
 
     $arr = [1,2,3,2,4,5,3,6,5,6,5,6];
